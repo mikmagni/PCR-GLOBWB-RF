@@ -2,7 +2,7 @@
 Post-processing streamflow simulations from PCR-GLOBWB using random forest regression
 
 ## Introduction
-Physical models of real-world variables are plagued by uncertainty in model components. \
+Models are plagued by uncertainty in their components. A variety of methdologies exist that address uncertainty. \
 We correct streamflow simulations from global hydrological model PCR-GLOBWB ([Sutanudjaja et al., 2018](https://doi.org/10.5194/gmd-11-2429-2018)) using random forest regression, for the years 1979-2019.
 In addition to meteorological input and catchment attributes, we use hydrological state variables from PCR-GLOBWB as predictors of observed discharge (response variable). \
 This repo is an update of the method by [Shen et al. (2022)](https://doi.org/10.1016/j.cageo.2021.105019) to the global scale. 
