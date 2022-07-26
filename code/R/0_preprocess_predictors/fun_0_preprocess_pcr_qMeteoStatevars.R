@@ -2,7 +2,6 @@ create_predictor_table <- function(i){
   
   station_no <- stationInfo$grdc_no[i]
   upstreamArea <- stationInfo$area[i] 
-  print(station_no)
   
   ####-------discharge-------####
   obs <- read.csv(paste0(filePathGrdc, 'grdc_', station_no, '.csv')) %>% 

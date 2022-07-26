@@ -8,7 +8,7 @@
 #========================================================================
 #
 #   Normalization of upstream averaged parameter maps values.
-#	Note: these are static predictors (same value for the whole timeseries)
+#	Note: these are statics predictors (same value for the whole timeseries.
 # 
 #
 #======================================================================== 

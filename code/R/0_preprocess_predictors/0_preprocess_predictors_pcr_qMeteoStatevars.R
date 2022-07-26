@@ -19,5 +19,5 @@ endDate <- '2019-12-31'
 dates <- seq(as.Date("1979-01-01"), as.Date("2019-12-31"), by="month")
 
 source('fun_0_preprocess_pcr_qMeteoStatevars.R')
-mclapply(1:nrow(stationInfo), create_predictor_table, mc.cores=24)
+pbmclapply(1:nrow(stationInfo), create_predictor_table, mc.cores=48)
 #~ lapply(1, create_predictor_table)

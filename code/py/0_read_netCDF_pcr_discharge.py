@@ -28,7 +28,7 @@ import tqdm
 
 filePath = '/scratch/sutan101/pcrglobwb2_output/30min_kinematicwave_w5e5_start_with_s3_estimate/netcdf_daily_renamed_to_band1_and_compressed_1979-2019/monthly/'
 outputPath = '/scratch/6574882/pcr_discharge' 
-loc = pd.read_csv('../../data/stationLatLon.csv',  encoding= 'unicode_escape')
+loc = pd.read_csv('../../data/stationLatLon.csv')
 file_name = "monavg_band1_discharge_dailyTot_output.nc" #file containing discharge
 nc = netCDF4.Dataset(filePath+file_name)
 
@@ -79,7 +79,7 @@ def get_discharge(station):
 get_latlon()
 
 station_idx = np.array(range(len(loc))) #set vector of indexes
-pool = Pool(processes=12) # set number of cores
+pool = Pool(processes=48) # set number of cores
 
 for _ in tqdm.tqdm(pool.imap_unordered(get_discharge, station_idx), total=len(station_idx)):
 	pass

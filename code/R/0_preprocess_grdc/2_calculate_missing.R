@@ -1,10 +1,10 @@
 ####-------------------------------####
-source('../fun_0_loadLibrary.R')
+source('../../fun_0_loadLibrary.R')
 ####-------------------------------####
 
 # set directories 
-grdcDir <- '../../../data/preprocess/grdc_discharge/'
-stationInfo <- read.csv('../../../data/stationLatLon.csv')
+grdcDir <- '../../../../data/preprocess/grdc_discharge/'
+stationInfo <- read.csv('../../../../data/stationLatLon.csv')
 
 source('fun_1_calculate_missing.R')
 missing_list <- lapply(1:nrow(stationInfo), calculate_missing)
@@ -15,6 +15,6 @@ summary(missing_col)
 
 stationInfo <- cbind(stationInfo,missing_col) 
 
-write.csv(stationInfo, '../../../data/stationLatLon.csv', row.names=F)
+write.csv(stationInfo, '../../../../data/stationLatLon.csv', row.names=F)
 
 

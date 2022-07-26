@@ -18,7 +18,7 @@ import numpy as np
 from alive_progress import alive_bar
 import re
 
-loc = pd.read_csv('../../data/stationLatLon.csv', encoding= 'unicode_escape')
+loc = pd.read_csv('../../data/stationLatLon.csv')
 catchAttrTable = pd.read_csv('../../data/allpoints_catchAttr.csv')
 
 def near(array,value):

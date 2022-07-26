@@ -17,7 +17,7 @@ merge_predictors <- function(i){
   print(station_no)
 	
   CatchAttrTable <- read.csv(paste0(filePathCatchAttr , 'pcr_parameters_',station_no,'.csv'))
-  statevarsTable <- read.csv(paste0(filePathStatevars , 'pcr_qMeteoStatevars_',station_no,'.csv'))
+  statevarsTable <- read.csv(paste0(filePathStatevars , 'pcr_qstatevars_',station_no,'.csv'))
   allPredictors <- inner_join(statevarsTable, CatchAttrTable, by='datetime') %>% 
     mutate(datetime=as.Date(datetime))
   write.csv(allPredictors, paste0(outputDir, 'pcr_allpredictors_',station_no,'.csv'), row.names=FALSE)

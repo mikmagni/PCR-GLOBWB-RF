@@ -14,4 +14,4 @@ bigTable <- do.call(rbind, all_tables)
 bigTable <- na.omit(bigTable)
 
 print('writing to disk...')
-write.csv(bigTable, '../../../data/table_allpredictors.csv' , row.names = F)
+write.csv(bigTable, '../../../data/bigTable_allpredictors.csv' , row.names = F)

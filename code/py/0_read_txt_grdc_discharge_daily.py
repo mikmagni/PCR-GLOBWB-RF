@@ -20,8 +20,8 @@ from alive_progress import alive_bar
 import time
 
 filePath = '/scratch/6574882/grdc_discharge_daily_complete_2022/'
-outputPath = '../../data/preprocess/grdc_discharge_daily/'
-loc = pd.read_csv('../../data/stationLatLon_daily.csv', encoding= 'unicode_escape')
+outputPath = '/home/6574882/PCR-GLOBWB-RF/data/preprocess/grdc_discharge_daily/'
+loc = pd.read_csv('../../data/stationLatLon_daily.csv')
 
 if not os.path.exists(outputPath):
 	os.makedirs(outputPath)
@@ -31,7 +31,7 @@ with alive_bar(len(loc), force_tty=True) as bar:
 	for j in range(len(loc)):
 		
 		station_no = str(loc['grdc_no'][j])
-		station_name = loc['station'][j].lower()    
+		# ~ station_name = loc['station'][j].lower()    
 		# ~ print(station_no, ':', station_name)
 
 		# read discharge, values start from line 38 of .txt files idx[37]
