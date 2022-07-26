@@ -33,7 +33,7 @@ The necessary packages are loaded at the beginning of each script and installed 
 1. Merge all predictors : merges Parameters and qMeteoStatevars (.csv)
 
 ### 1_correlation_analysis
-bigTable : puts together all stations predictor tables *allpredictors* 
+bigTable : puts together all stations predictor tables *allpredictors* \
 corrplot : visualizes correlation plot of all predictors
 
 ### 2_randomForest
