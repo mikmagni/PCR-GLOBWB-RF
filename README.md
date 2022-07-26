@@ -7,6 +7,6 @@ Here, we correct streamflow simulations from global hydrological model PCR-GLOBW
 In addition to meteorological input and catchment attributes, we use hydrological state variables from PCR-GLOBWB as predictors of observed discharge (response variable).
 
 ## Streamflow observations
-River discharge data was downloaded from the Global Runoff Data Centre (GRDC). 
-2286 stations with variable availability of observations were selected (min. area = 10 000 km<sup>2</sup>)
+River discharge data was downloaded from the Global Runoff Data Centre ([GRDC](https://www.bafg.de/GRDC)). \
+2286 stations with variable availability of observations were selected (min. area = 10 000 km<sup>2</sup>) \
 The selected stations can be found in data/stationLatLon.csv 
