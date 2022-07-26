@@ -7,16 +7,16 @@ We correct streamflow simulations from global hydrological model PCR-GLOBWB ([Su
 In addition to meteorological input and catchment attributes, we use hydrological state variables from PCR-GLOBWB as predictors of observed discharge (response variable).
 Here, we update the method by [Shen et al., 2022](https://doi.org/10.1016/j.cageo.2021.105019) to global scale. 
 
-## Response variable - Streamflow observations 
+## Streamflow observations 
 River discharge data was downloaded from the Global Runoff Data Centre ([GRDC](https://www.bafg.de/GRDC)). \
 2286 stations with variable availability of observations were selected (min. area = 10 000 km<sup>2</sup>) \
 The selected stations can be found stationLatLon.csv (merged daily and monthly).
 
 ## Python module
 The python module is used to extract raw data into homogeneous .csv files. 
-- Extraction of GRDC discharge, either daily or monthly (.txt -> .csv)
-- Extraction of PCR-GLOBWB upstream averaged parameters (from data/allpoints.csv into stationLatLon)
-- Extraction of PCR-GLOBWB upstream averaged meteo input and state variables (.netCDF -> .csv).
+- Extraction of GRDC discharge, either daily or monthly (from .txt)
+- Extraction of PCR-GLOBWB upstream averaged parameters (from data/allpoints_catchAttr.csv into stationLatLon.csv)
+- Extraction of PCR-GLOBWB upstream averaged meteo input and state variables (from .netCDF).
 
 ## R module
 The R module follows the post-processing phases described in **manuscript**
