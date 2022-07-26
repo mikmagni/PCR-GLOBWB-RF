@@ -1,5 +1,4 @@
 # PCR-GLOBWB-RF
-Post-processing streamflow simulations from PCR-GLOBWB using random forest regression
 
 ## Introduction
 Models are plagued by uncertainty in their components. A variety of methdologies exist that address uncertainty. \
