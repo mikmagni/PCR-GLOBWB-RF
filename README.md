@@ -1,5 +1,5 @@
 # PCR-GLOBWB-RF
-Post-processing streamflow simulations from PCR-GLOBWB using random forest regression.
+Post-processing streamflow simulations from PCR-GLOBWB using random forest regression
 
 ## Introduction
 Physical models of real-world variables are plagued by uncertainty in model components. \
@@ -28,12 +28,17 @@ The R module follows the post-processing phases described in **manuscript**
 3. Visualizes stations map and relative data availability. 
 
 ### 0_preprocess_predictors
-
+0. Parameters: generates timeseries of static catchment attributes (.csv)
+0. qMeteoStatevars: merges timeseries of meteo input and state variables (.csv)
+1. Merge all predictors : merges Parameters and qMeteoStatevars (.csv)
 
 ### 1_correlation_analysis
-
+bigTable : puts together all stations predictor tables *allpredictors* 
+corrplot : visualizes correlation plot of all predictors
 
 ### 2_randomForest
-
+0 : Subsample -> Subsamples stationLatLon.csv to generate a training table that contains ~70% of all available timesteps.
+1 : Tune -> Uses training table from 0 to tune Random Forest hyperaparameters
+2 : Train / Testing -> Can be done separately (train and then validate) or in batch (train_test). Calculates variable importance and KGE (before and after post-processing)
 
 ### 3_visualization
