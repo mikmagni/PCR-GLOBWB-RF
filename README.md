@@ -8,5 +8,5 @@ In addition to meteorological input and catchment attributes, we use hydrologica
 
 ## Streamflow observations
 River discharge data was downloaded from the Global Runoff Data Centre (GRDC). 
-2286 stations with variable availability of observations were selected (min. area = 10 000 km^2)
+2286 stations with variable availability of observations were selected (min. area = 10 000 km<sup>2</sup>)
 The selected stations can be found in data/stationLatLon.csv 
