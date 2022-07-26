@@ -16,10 +16,11 @@ The selected stations can be found stationLatLon.csv (merged daily and monthly).
 The python module is used to extract raw data into homogeneous .csv files. 
 - Extraction of GRDC discharge, either daily or monthly (from .txt)
 - Extraction of PCR-GLOBWB upstream averaged parameters (from data/allpoints_catchAttr.csv into stationLatLon.csv)
-- Extraction of PCR-GLOBWB upstream averaged meteo input and state variables (from .netCDF).
+- Extraction of PCR-GLOBWB upstream averaged meteo input and state variables (from .netCDF). 
 
 ## R module
-The R module follows the post-processing phases described in **manuscript**
+The R module follows the post-processing phases described in **manuscript**.
+The necessary packages are loaded at the beginning of each script and installed if missing using fun_0_loadLibrary.R
 
 ### 0_preprocess_grdc
 0. Upscales daily discharge to monthly, merges daily and monthly if a station has both, keeps upscaled daily if available at a timestep.
