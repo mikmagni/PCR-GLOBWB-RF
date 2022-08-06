@@ -37,8 +37,8 @@ bigTable : puts together all stations predictor tables *allpredictors* \
 corrplot : visualizes correlation plot of all predictors
 
 ### 2_randomForest
-0. Subsample -> Subsamples stationLatLon.csv to generate a training table that contains ~70% of all available timesteps. \
-1. Tune -> Uses training table from 0 to tune Random Forest hyperaparameters. \
+0. Subsample -> Subsamples stationLatLon.csv to generate a training table that contains ~70% of all available timesteps. 
+1. Tune -> Uses training table from 0 to tune Random Forest hyperaparameters. 
 2. Train / Testing -> Can be done separately (train and then validate) or in batch (train_test). Calculates variable importance and KGE (before and after post-processing).
 
 ### 3_visualization
