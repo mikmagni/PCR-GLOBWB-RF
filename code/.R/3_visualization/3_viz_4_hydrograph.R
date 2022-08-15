@@ -30,18 +30,21 @@ combiPlot <- function(i){
                       str_to_title(stationInfo$river[i]), ', ', stationInfo$country[i], ')')),
       subtitle = paste0('lat: ', stationInfo$lat[i], ', lon: ', stationInfo$lon[i],
                         '\nUpstream area: ', upstreamArea, ' km2'),
-      caption = paste0('KGE: ', KGE_uncalib, ' (uncalibrated), ', KGE_corrected, ' (RF-corrected)\n',
+      caption = paste0('KGE: ', KGE_uncalib, ' (uncalibrated), ', KGE_corrected, ' (post-processed)\n',
                        'Missing data (1979-2019): ', miss_data, '%')) &
-    theme(plot.title = element_text(hjust= 0.5, size = 18, face='bold')) &
-    theme(plot.subtitle = element_text(hjust= 0.5, size = 14)) &
-    theme(plot.caption = element_text(size = 12)) &
-    theme(text = element_text('mono')) 
-  combined
+    theme(plot.title = element_text(hjust= 0.5, size = 22, face='bold'),
+          plot.subtitle = element_text(hjust= 0.5, size = 18),
+          plot.caption = element_text(size = 16),
+          text = element_text('mono'),
+          legend.position = 'bottom')
+  # combined
   
   ggsave(paste0(outputDirCombo,'comboPlot_',station_no,'.png'), combined, height=10, width=20, units='in', dpi=300)
   
 }
 
+
+#### all subsamples ####
 for(subsample in 1:5){
     
     print(paste0('subsample: ', subsample))

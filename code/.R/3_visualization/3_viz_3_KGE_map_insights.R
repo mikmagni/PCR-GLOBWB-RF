@@ -78,7 +78,7 @@ KGE_map_uncalibrated <- ggplot() +
   ylim(-55,75)+
   geom_point(plotData_uncalibrated, mapping = aes(x = lon, y = lat,
                                       fill=cut(mean_test_KGE_uncalibrated, breaks=breaks, labels=labels)),
-             color='black', pch=21, size = 2) +
+             color='black', pch=21, size = 2.5) +
   scale_fill_brewer(palette='RdYlBu', guide = guide_legend(reverse=TRUE), name='KGE')+
   labs(title='Uncalibrated PCR-GLOBWB\n') +
   xlab('longitude')+
@@ -100,7 +100,7 @@ KGE_map_allpredictors <- ggplot() +
   ylim(-55,75)+
   geom_point(plotData_allpredictors, mapping = aes(x = lon, y = lat,
                                                   fill=cut(mean_test_KGE_allpredictors, breaks=breaks, labels=labels)),
-             color='black', pch=21, size = 2) +
+             color='black', pch=21, size = 2.5) +
   scale_fill_brewer(palette='RdYlBu', guide = guide_legend(reverse=TRUE), name='KGE') +
 labs(title="Postprocessed - 'allpredictors'\n") +
   xlab('longitude')+
@@ -114,7 +114,7 @@ labs(title="Postprocessed - 'allpredictors'\n") +
 #patch it 
 combined <- ( KGE_map_uncalibrated / KGE_map_allpredictors ) + 
   plot_layout(guides = "collect", width=c(2,2)) &
-  guides(fill = guide_legend(override.aes = list(size = 5))) &
+  guides(fill = guide_legend(override.aes = list(size = 7))) &
   theme(legend.position = 'bottom',
         legend.title = element_text(size=16),
         legend.text = element_text(size=16))
@@ -124,6 +124,16 @@ combined
 ggsave(paste0(outputDir,'map_kge.png'), combined, height=15, width=15, units='in', dpi=600)
 
 
+
+#### scatterplot KGE uncalibrated vs. allpredictors ####
+# scatterData <- merge(plotData_uncalibrated, plotData_allpredictors, by='grdc_no')
+# 
+# ggplot(scatterData) +
+#   geom_point(aes(x = mean_test_KGE_uncalibrated, y = mean_test_KGE_allpredictors)) #+
+#   # xlim(-1,1)+
+#   # ylim(-1,1)
+# rsq <- function (x, y) cor(x, y) ^ 2
+# rsq(scatterData$mean_test_KGE_uncalibrated, scatterData$mean_test_KGE_allpredictors)
 
 
 # #performance: improved or degraded KGEf

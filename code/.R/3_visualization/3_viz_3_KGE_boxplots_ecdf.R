@@ -51,9 +51,12 @@ for(subsample in 1:5){
   
 }
 
-plotData <- do.call(rbind, subsample_KGE_list) %>%  pivot_longer(KGE:KGE_beta,
-                                                              names_to = "KGE_component", 
-                                                              values_to = "value") %>% 
+allData <- do.call(rbind, subsample_KGE_list)
+allDataCum <- allData %>% mutate(subsample='Cumulative')
+allData <- rbind(allData,allDataCum)
+
+plotData <- allData %>% pivot_longer(KGE:KGE_beta, names_to = "KGE_component", 
+                                     values_to = "value") %>% 
   mutate(setup = factor(setup, levels=c('uncalibrated', 'qMeteoStatevars','meteoCatchAttr','allpredictors'))) %>%
   mutate(KGE_component = fct_relevel(KGE_component, 'KGE','KGE_r','KGE_alpha','KGE_beta'))
 
@@ -78,54 +81,85 @@ KGE_boxplot <- ggplot(plotData , mapping = aes(setup, value, fill=setup))+
   facetted_pos_scales(y = list(
     KGE_component == "KGE" ~ scale_y_continuous(position='right', limits = c(-4, 1)),
     KGE_component == "KGE_r" ~ scale_y_continuous(position='right', limits = c(0, 1)),
-    KGE_component == "KGE_alpha" ~ scale_y_continuous(position='right', limits = c(-1,6)),
-    KGE_component == "KGE_beta" ~ scale_y_continuous(position='right', limits = c(-1, 6))))
+    KGE_component == "KGE_alpha" ~ scale_y_continuous(position='right', limits = c(-0.5,5)),
+    KGE_component == "KGE_beta" ~ scale_y_continuous(position='right', limits = c(-0.5,5.5))))
 KGE_boxplot
 
 ggsave(paste0(outputDir,'KGE_boxplots.png'), KGE_boxplot, height=10, width=10, units='in', dpi=600)
 
 
 
+#### some stats (paper section 3.3.) ####
+uncalibratedCum <- allDataCum %>% filter(setup=='uncalibrated') 
+qmeteostateCum <- allDataCum %>% filter(setup=='qMeteoStatevars') 
+meteocatchCum <- allDataCum %>% filter(setup=='meteoCatchAttr') 
+allpredictorsCum <- allDataCum %>% filter(setup=='allpredictors') 
 
-#### plot ecdf of each configuration, for each KGE component ####
-KGE_ecdf <- ggplot(plotData %>% filter(., KGE_component=='KGE'), (aes(y=value, color=setup)))+
-  stat_ecdf(size=0.5, alpha=0.8) +
-  scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9", "#009E73"))+
-  ylim(-10,1) +
-  ylab('KGE') +
-  theme(axis.text.x = element_blank(), 
-        axis.text.y= element_text(size=12))
+summary(uncalibratedCum$KGE)
+summary(qmeteostateCum$KGE)
+summary(meteocatchCum$KGE)
+summary(allpredictorsCum$KGE)
 
-KGE_r_ecdf <- ggplot(plotData %>% filter(., KGE_component=='KGE_r'), (aes(y=value, color=setup)))+
-  stat_ecdf(size=0.5, alpha=0.8) +
-  scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9", "#009E73"))+
-  ylim(-0.5,1) +
-  ylab('KGE: r') +
-  theme(axis.text.x = element_blank(), 
-        axis.text.y= element_text(size=12))
+summary(uncalibratedCum$KGE_r)
+summary(qmeteostateCum$KGE_r)
+summary(meteocatchCum$KGE_r)
+summary(allpredictorsCum$KGE_r)
 
-KGE_alpha_ecdf <- ggplot(plotData %>% filter(., KGE_component=='KGE_r'), (aes(y=value, color=setup)))+
-  stat_ecdf(size=0.5, alpha=0.8) +
-  scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9", "#009E73"))+
-  ylim(-1,1) +
-  ylab('KGE: alpha') + 
-  xlab('p') +
-  theme(axis.text.y= element_text(size=12))
+summary(uncalibratedCum$KGE_alpha)
+summary(qmeteostateCum$KGE_alpha)
+summary(meteocatchCum$KGE_alpha)
+summary(allpredictorsCum$KGE_alpha)
 
-KGE_beta_ecdf <- ggplot(plotData %>% filter(., KGE_component=='KGE_r'), (aes(y=value, color=setup)))+
-  stat_ecdf(size=0.5, alpha=0.8) +
-  scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9", "#009E73"))+
-  ylim(-1,1) +
-  ylab('KGE: beta') + 
-  xlab('p') +
-  theme(axis.text.y= element_text(size=12))
+summary(uncalibratedCum$KGE_beta)
+summary(qmeteostateCum$KGE_beta)
+summary(meteocatchCum$KGE_beta)
+summary(allpredictorsCum$KGE_beta)
 
-allEcdfs <- ( KGE_ecdf + KGE_r_ecdf ) / ( KGE_alpha_ecdf + KGE_beta_ecdf)
-allEcdfs_layoutted <- allEcdfs + plot_layout(guides = "collect")  &
-  guides(color = guide_legend(override.aes = list(size = 2))) &
-  theme(legend.position = 'bottom',
-        legend.title=element_blank(),
-        legend.text = element_text(size=12))
-allEcdfs_layoutted
 
-ggsave(paste0(outputDir,'KGE_ecdf.png'), allEcdfs_layoutted, height=10, width=10, units='in', dpi=600)
+# uncalKGE <-allDataCum %>% filter(setup=='uncalibrated') 
+# mean(uncalKGE$KGE, na.rm=T)
+# allPredsKGE <-allDataCum %>% filter(setup=='allpredictors') 
+# mean(allPredsKGE$KGE, na.rm=T)
+
+# #### plot ecdf of each configuration, for each KGE component ####
+# KGE_ecdf <- ggplot(plotData %>% filter(., KGE_component=='KGE'), (aes(y=value, color=setup)))+
+#   stat_ecdf(size=0.5, alpha=0.8) +
+#   scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9", "#009E73"))+
+#   ylim(-10,1) +
+#   ylab('KGE') +
+#   theme(axis.text.x = element_blank(), 
+#         axis.text.y= element_text(size=12))
+# 
+# KGE_r_ecdf <- ggplot(plotData %>% filter(., KGE_component=='KGE_r'), (aes(y=value, color=setup)))+
+#   stat_ecdf(size=0.5, alpha=0.8) +
+#   scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9", "#009E73"))+
+#   ylim(-0.5,1) +
+#   ylab('KGE: r') +
+#   theme(axis.text.x = element_blank(), 
+#         axis.text.y= element_text(size=12))
+# 
+# KGE_alpha_ecdf <- ggplot(plotData %>% filter(., KGE_component=='KGE_r'), (aes(y=value, color=setup)))+
+#   stat_ecdf(size=0.5, alpha=0.8) +
+#   scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9", "#009E73"))+
+#   ylim(-1,1) +
+#   ylab('KGE: alpha') + 
+#   xlab('p') +
+#   theme(axis.text.y= element_text(size=12))
+# 
+# KGE_beta_ecdf <- ggplot(plotData %>% filter(., KGE_component=='KGE_r'), (aes(y=value, color=setup)))+
+#   stat_ecdf(size=0.5, alpha=0.8) +
+#   scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9", "#009E73"))+
+#   ylim(-1,1) +
+#   ylab('KGE: beta') + 
+#   xlab('p') +
+#   theme(axis.text.y= element_text(size=12))
+# 
+# allEcdfs <- ( KGE_ecdf + KGE_r_ecdf ) / ( KGE_alpha_ecdf + KGE_beta_ecdf)
+# allEcdfs_layoutted <- allEcdfs + plot_layout(guides = "collect")  &
+#   guides(color = guide_legend(override.aes = list(size = 2))) &
+#   theme(legend.position = 'bottom',
+#         legend.title=element_blank(),
+#         legend.text = element_text(size=12))
+# allEcdfs_layoutted
+# 
+# ggsave(paste0(outputDir,'KGE_ecdf.png'), allEcdfs_layoutted, height=10, width=10, units='in', dpi=600)

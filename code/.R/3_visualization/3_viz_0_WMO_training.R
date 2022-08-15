@@ -36,3 +36,7 @@ for(i in 1:6){
   
 }
 
+#### descriptive statistics of stations ####
+stationInfo <- read.csv('../../../data/stationLatLon.csv')
+summary(stationInfo$area)
+summary(stationInfo$miss)
