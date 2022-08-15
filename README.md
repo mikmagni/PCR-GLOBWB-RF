@@ -1,7 +1,7 @@
 # PCR-GLOBWB-RF
 
 ## Introduction
-Models are characterized by uncertainty in their components, which can be corrected with a variety of methdologies. \
+Models are characterized by uncertainty in their components, which can be corrected with a variety of methodologies. \
 We correct streamflow simulations from global hydrological model PCR-GLOBWB ([Sutanudjaja et al., 2018](https://doi.org/10.5194/gmd-11-2429-2018)) using random forest regression, for the years 1979-2019.
 In addition to meteorological input and catchment attributes, we use hydrological state variables from PCR-GLOBWB as predictors of observed discharge (response variable). \
 This repo is an update of the method by [Shen et al. (2022)](https://doi.org/10.1016/j.cageo.2021.105019) to the global scale. 
