@@ -121,7 +121,8 @@ for(i in 1:3){
 #patch it together
 tuningPlot <- (mtryPlotList[[1]] + mtryPlotList[[2]] + mtryPlotList[[3]]) / 
   (ntreePlotList[[1]] + ntreePlotList[[2]] + ntreePlotList[[3]]) +
-  plot_layout(guides = "collect") &
+  plot_layout(guides = "collect") +
+  plot_annotation(tag_levels = 'A')&
   guides(color = guide_legend(override.aes = list(size = 2))) &
   theme(legend.position = 'bottom',
         legend.title = element_text(size=18),
@@ -129,36 +130,4 @@ tuningPlot <- (mtryPlotList[[1]] + mtryPlotList[[2]] + mtryPlotList[[3]]) /
   theme(text = element_text(family='Serif'))
 tuningPlot
 
-ggsave(paste0(outputDir,'tuningPlot.png'), tuningPlot, height=8, width=10, units='in', dpi=600)
-
-
-
-# #### improvements OOB RMSE for larger ntrees ####
-# ntreeTuningList <- list()
-# improvement <- list()
-# for(i in 1:3){
-#   for(subsample in 1:5){
-#     
-#     tuning_dir <- paste0('../../../RF/tune/subsample_',subsample,'/')
-#     
-#     ntree_200 <- read.csv(paste0(tuning_dir, 'hyper_grid_',setup[i],'_ntrees_100-1500.csv'))
-#     # ntree_low <- read.csv(paste0(tuning_dir, 'hyper_grid_',setup[i],'_ntrees_10-150.csv'))
-#     
-#     # ntree_tuning <- full_join(ntree_200, ntree_low) %>% mutate(.,subsample=factor(subsample))
-#     ntree_tuning <- ntree_200 %>% mutate(.,subsample=factor(subsample))
-#     
-#     ntree_tuning$improvement[1] <- NA
-#     for(j in 1:(nrow(ntree_tuning)-1)){
-#       
-#       ntree_tuning$improvement[j+1] <- ((ntree_tuning$OOB_RMSE[j+1] - 
-#                                           ntree_tuning$OOB_RMSE[j]) / (ntree_tuning$OOB_RMSE[j])) * 100
-#     }
-#     
-#     
-#     ntreeTuningList[[subsample]] <- ntree_tuning
-#     all_ntree_setup <- do.call(rbind, ntreeTuningList)
-#     
-#     improvement[[subsample]]
-#     
-#   }
-# }
+# ggsave(paste0(outputDir,'tuningPlot.png'), tuningPlot, height=8, width=10, units='in', dpi=600)
