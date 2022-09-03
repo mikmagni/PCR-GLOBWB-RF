@@ -8,7 +8,7 @@ fileListPreds <- list.files(filePathPreds)
 filenames <- paste0(filePathPreds, fileListPreds)
 
 print('reading all tables...')
-all_tables <- mclapply(filenames, vroom, show_col_types = F, mc.cores=24)
+all_tables <- mclapply(filenames, vroom, show_col_types = F, mc.cores=8)
 print('binding...')
 bigTable <- do.call(rbind, all_tables)
 bigTable <- na.omit(bigTable)
