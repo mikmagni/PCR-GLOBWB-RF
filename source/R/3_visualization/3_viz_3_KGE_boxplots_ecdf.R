@@ -89,77 +89,28 @@ ggsave(paste0(outputDir,'KGE_boxplots.png'), KGE_boxplot, height=10, width=10, u
 
 
 
-#### some stats (paper section 3.3.) ####
-uncalibratedCum <- allDataCum %>% filter(setup=='uncalibrated') 
-qmeteostateCum <- allDataCum %>% filter(setup=='qMeteoStatevars') 
-meteocatchCum <- allDataCum %>% filter(setup=='meteoCatchAttr') 
-allpredictorsCum <- allDataCum %>% filter(setup=='allpredictors') 
-
-summary(uncalibratedCum$KGE)
-summary(qmeteostateCum$KGE)
-summary(meteocatchCum$KGE)
-summary(allpredictorsCum$KGE)
-
-summary(uncalibratedCum$KGE_r)
-summary(qmeteostateCum$KGE_r)
-summary(meteocatchCum$KGE_r)
-summary(allpredictorsCum$KGE_r)
-
-summary(uncalibratedCum$KGE_alpha)
-summary(qmeteostateCum$KGE_alpha)
-summary(meteocatchCum$KGE_alpha)
-summary(allpredictorsCum$KGE_alpha)
-
-summary(uncalibratedCum$KGE_beta)
-summary(qmeteostateCum$KGE_beta)
-summary(meteocatchCum$KGE_beta)
-summary(allpredictorsCum$KGE_beta)
-
-
-# uncalKGE <-allDataCum %>% filter(setup=='uncalibrated') 
-# mean(uncalKGE$KGE, na.rm=T)
-# allPredsKGE <-allDataCum %>% filter(setup=='allpredictors') 
-# mean(allPredsKGE$KGE, na.rm=T)
-
-# #### plot ecdf of each configuration, for each KGE component ####
-# KGE_ecdf <- ggplot(plotData %>% filter(., KGE_component=='KGE'), (aes(y=value, color=setup)))+
-#   stat_ecdf(size=0.5, alpha=0.8) +
-#   scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9", "#009E73"))+
-#   ylim(-10,1) +
-#   ylab('KGE') +
-#   theme(axis.text.x = element_blank(), 
-#         axis.text.y= element_text(size=12))
+# #### some stats (paper section 3.3.) ####
+# uncalibratedCum <- allDataCum %>% filter(setup=='uncalibrated') 
+# qmeteostateCum <- allDataCum %>% filter(setup=='qMeteoStatevars') 
+# meteocatchCum <- allDataCum %>% filter(setup=='meteoCatchAttr') 
+# allpredictorsCum <- allDataCum %>% filter(setup=='allpredictors') 
 # 
-# KGE_r_ecdf <- ggplot(plotData %>% filter(., KGE_component=='KGE_r'), (aes(y=value, color=setup)))+
-#   stat_ecdf(size=0.5, alpha=0.8) +
-#   scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9", "#009E73"))+
-#   ylim(-0.5,1) +
-#   ylab('KGE: r') +
-#   theme(axis.text.x = element_blank(), 
-#         axis.text.y= element_text(size=12))
+# summary(uncalibratedCum$KGE)
+# summary(qmeteostateCum$KGE)
+# summary(meteocatchCum$KGE)
+# summary(allpredictorsCum$KGE)
 # 
-# KGE_alpha_ecdf <- ggplot(plotData %>% filter(., KGE_component=='KGE_r'), (aes(y=value, color=setup)))+
-#   stat_ecdf(size=0.5, alpha=0.8) +
-#   scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9", "#009E73"))+
-#   ylim(-1,1) +
-#   ylab('KGE: alpha') + 
-#   xlab('p') +
-#   theme(axis.text.y= element_text(size=12))
+# summary(uncalibratedCum$KGE_r)
+# summary(qmeteostateCum$KGE_r)
+# summary(meteocatchCum$KGE_r)
+# summary(allpredictorsCum$KGE_r)
 # 
-# KGE_beta_ecdf <- ggplot(plotData %>% filter(., KGE_component=='KGE_r'), (aes(y=value, color=setup)))+
-#   stat_ecdf(size=0.5, alpha=0.8) +
-#   scale_color_manual(values=c("#999999", "#E69F00", "#56B4E9", "#009E73"))+
-#   ylim(-1,1) +
-#   ylab('KGE: beta') + 
-#   xlab('p') +
-#   theme(axis.text.y= element_text(size=12))
+# summary(uncalibratedCum$KGE_alpha)
+# summary(qmeteostateCum$KGE_alpha)
+# summary(meteocatchCum$KGE_alpha)
+# summary(allpredictorsCum$KGE_alpha)
 # 
-# allEcdfs <- ( KGE_ecdf + KGE_r_ecdf ) / ( KGE_alpha_ecdf + KGE_beta_ecdf)
-# allEcdfs_layoutted <- allEcdfs + plot_layout(guides = "collect")  &
-#   guides(color = guide_legend(override.aes = list(size = 2))) &
-#   theme(legend.position = 'bottom',
-#         legend.title=element_blank(),
-#         legend.text = element_text(size=12))
-# allEcdfs_layoutted
-# 
-# ggsave(paste0(outputDir,'KGE_ecdf.png'), allEcdfs_layoutted, height=10, width=10, units='in', dpi=600)
+# summary(uncalibratedCum$KGE_beta)
+# summary(qmeteostateCum$KGE_beta)
+# summary(meteocatchCum$KGE_beta)
+# summary(allpredictorsCum$KGE_beta)

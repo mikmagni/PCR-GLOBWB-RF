@@ -102,7 +102,7 @@ KGE_map_allpredictors <- ggplot() +
                                                   fill=cut(mean_test_KGE_allpredictors, breaks=breaks, labels=labels)),
              color='black', pch=21, size = 2.5) +
   scale_fill_brewer(palette='RdYlBu', guide = guide_legend(reverse=TRUE), name='KGE') +
-labs(title="Postprocessed - 'allpredictors'\n") +
+labs(title="Postprocessed - 'allPredictors'\n") +
   xlab('longitude')+
   ylab('latitude') +
   theme(plot.title = element_text(hjust = 0.5, size=20),
@@ -136,24 +136,20 @@ ggsave(paste0(outputDir,'map_kge.png'), combined, height=15, width=15, units='in
 # rsq(scatterData$mean_test_KGE_uncalibrated, scatterData$mean_test_KGE_allpredictors)
 
 
-# #performance: improved or degraded KGEf
-# eval_allG <- inner_join(plotData_uncalibrated,plotData_allpredictors, by='grdc_no')
-# 
-# improvement <- eval_allG$mean_test_KGE_allpredictors[which(eval_allG$mean_test_KGE_allpredictors > -0.41)]
-# 
-# KGE_map_improvement <- ggplot() +
-#   geom_map(
-#     data = wg, map = wg,
-#     aes(long, lat, map_id = region),
-#     color = "black", fill= "white"
-#   ) +
-#   xlim(-180,180)+
-#   geom_point(eval_allG, mapping = aes(x = long, y = lat,
-#                                       color=improvement),
-#              size = 2, show.legend = T) +
-#   # labs(title='Performance') +
-#   xlab('longitude')+
-#   ylab('latitude') +
-#   theme_bw()+
-#   theme(plot.title = element_text(hjust = 0.5))
-# KGE_map_improvement
+#performance: improved or degraded KGE
+eval_allG <- inner_join(plotData_uncalibrated,plotData_allpredictors, by='grdc_no')
+
+improvement <- eval_allG[which(eval_allG$mean_test_KGE_uncalibrated < eval_allG$mean_test_KGE_allpredictors),]
+worsening <-   eval_allG[which(eval_allG$mean_test_KGE_uncalibrated > eval_allG$mean_test_KGE_allpredictors),]
+
+summary(worsening$mean_test_KGE_uncalibrated)
+summary(worsening$mean_test_KGE_allpredictors)
+summary(improvement$mean_test_KGE_uncalibrated)
+summary(improvement$mean_test_KGE_allpredictors)
+
+summary(worsening$miss.x)
+summary(improvement$miss.x)
+
+
+
+
