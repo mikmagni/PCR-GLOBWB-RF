@@ -13,7 +13,7 @@ The selected stations can be found stationLatLon.csv (merged daily and monthly).
 
 ## Python module
 The python module is used to extract raw data into homogeneous .csv files. \
-For fast installation / update of necessary modules I recommend creating a conda environment that uses the mamba package manager.
+For fast installation / update of necessary modules I recommend creating a conda environment that includes the mamba package manager.
 - Extraction of GRDC discharge, either daily or monthly (from .txt)
 - Extraction of PCR-GLOBWB upstream averaged parameters (from data/allpoints_catchAttr.csv into stationLatLon.csv)
 - Extraction of PCR-GLOBWB upstream averaged meteo input and state variables (from .netCDF). 
