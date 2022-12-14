@@ -19,7 +19,7 @@ num.threads <- 24
 min.node.size = 5
 tuned_mtry <- read.csv('tuned_mtry.csv', header=F)
 
-for(subsample in 2:5){
+for(subsample in 1:5){
     
     print(paste0('subsample: ', subsample))
     #select subsample predictors
@@ -56,50 +56,50 @@ for(subsample in 2:5){
     print('allpredictors: finished validation...')
 
 
-    #### only q, meteo and statevars as predictors ####
-    #train
-    print('training: qMeteoStatevars')              
-    rf_input <- train_data %>% select(., -datetime) %>% 
-      select(.,obs:nonIrrWaterConsumption) #here select the wished predictors
-    mtry <- tuned_mtry[2,subsample]
-    optimal_ranger <- trainRF(input_table=rf_input, num.trees=500, mtry=mtry)
+#~     #### only q, meteo and statevars as predictors ####
+#~     #train
+#~     print('training: qMeteoStatevars')              
+#~     rf_input <- train_data %>% select(., -datetime) %>% 
+#~       select(.,obs:nonIrrWaterConsumption) #here select the wished predictors
+#~     mtry <- tuned_mtry[2,subsample]
+#~     optimal_ranger <- trainRF(input_table=rf_input, num.trees=500, mtry=mtry)
 
-    #save trained model and variable importance rank
-    print('saving...')
-    #~ saveRDS(optimal_ranger, paste0(outputDir,'trainedRF_qMeteoStatevars.rds')) 
-    vi_df <- data.frame(names=names(optimal_ranger$variable.importance)) %>%
-      mutate(importance=optimal_ranger$variable.importance)
-    write.csv(vi_df, paste0(outputDir,'varImportance_qMeteoStatevars.csv'), row.names=F)
+#~     #save trained model and variable importance rank
+#~     print('saving...')
+#~     saveRDS(optimal_ranger, paste0(outputDir,'trainedRF_qMeteoStatevars.rds')) 
+#~     vi_df <- data.frame(names=names(optimal_ranger$variable.importance)) %>%
+#~       mutate(importance=optimal_ranger$variable.importance)
+#~     write.csv(vi_df, paste0(outputDir,'varImportance_qMeteoStatevars.csv'), row.names=F)
 
-    #run validation script
-    key='qMeteoStatevars'
-    print(paste0(key,' : calculation initiated...'))
-    KGE_list <- mclapply(1:nrow(testStationInfo), key=key, apply_optimalRF, mc.cores=24)
-    rf.eval <- do.call(rbind,KGE_list)
-    write.csv(rf.eval, paste0(outputDirValidation, 'KGE_' , key, '.csv'), row.names = F)
-    print('qMeteoStatevars: finished validation...')
+#~     #run validation script
+#~     key='qMeteoStatevars'
+#~     print(paste0(key,' : calculation initiated...'))
+#~     KGE_list <- mclapply(1:nrow(testStationInfo), key=key, apply_optimalRF, mc.cores=24)
+#~     rf.eval <- do.call(rbind,KGE_list)
+#~     write.csv(rf.eval, paste0(outputDirValidation, 'KGE_' , key, '.csv'), row.names = F)
+#~     print('qMeteoStatevars: finished validation...')
 
 
-    #### meteo, catchment attributes ####
-    #train
-    print('training: meteoCatchAttr...')
-    rf_input <- train_data %>% select(., -datetime) %>% 
-      select(obs, precipitation:referencePotET, airEntry1:tanSlope) #here select the wished predictors
-    mtry <- tuned_mtry[3,subsample]
-    optimal_ranger <- trainRF(input_table=rf_input, num.trees=500, mtry=mtry)
-    #save trained model and variable importance rank
-    print('saving...')
-    #~ saveRDS(optimal_ranger, paste0(outputDir,'trainedRF_meteoCatchAttr.rds'))                    
-    vi_df <- data.frame(names=names(optimal_ranger$variable.importance)) %>%
-      mutate(importance=optimal_ranger$variable.importance)                     
-    write.csv(vi_df, paste0(outputDir,'varImportance_meteoCatchAttr.csv'), row.names=F)
+#~     #### meteo, catchment attributes ####
+#~     #train
+#~     print('training: meteoCatchAttr...')
+#~     rf_input <- train_data %>% select(., -datetime) %>% 
+#~       select(obs, precipitation:referencePotET, airEntry1:tanSlope) #here select the wished predictors
+#~     mtry <- tuned_mtry[3,subsample]
+#~     optimal_ranger <- trainRF(input_table=rf_input, num.trees=500, mtry=mtry)
+#~     #save trained model and variable importance rank
+#~     print('saving...')
+#~     saveRDS(optimal_ranger, paste0(outputDir,'trainedRF_meteoCatchAttr.rds'))                    
+#~     vi_df <- data.frame(names=names(optimal_ranger$variable.importance)) %>%
+#~       mutate(importance=optimal_ranger$variable.importance)                     
+#~     write.csv(vi_df, paste0(outputDir,'varImportance_meteoCatchAttr.csv'), row.names=F)
 
-    #run validation script
-    key='meteoCatchAttr'
-    print(paste0(key,' : calculation initiated...'))
-    KGE_list <- mclapply(1:nrow(testStationInfo), key=key, apply_optimalRF, mc.cores=24)
-    rf.eval <- do.call(rbind,KGE_list)
-    write.csv(rf.eval, paste0(outputDirValidation, 'KGE_' , key, '.csv'), row.names = F)
-    print('meteoCatchAttr: finished validation...')
+#~     #run validation script
+#~     key='meteoCatchAttr'
+#~     print(paste0(key,' : calculation initiated...'))
+#~     KGE_list <- mclapply(1:nrow(testStationInfo), key=key, apply_optimalRF, mc.cores=24)
+#~     rf.eval <- do.call(rbind,KGE_list)
+#~     write.csv(rf.eval, paste0(outputDirValidation, 'KGE_' , key, '.csv'), row.names = F)
+#~     print('meteoCatchAttr: finished validation...')
     
 }

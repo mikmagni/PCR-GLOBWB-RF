@@ -7,11 +7,9 @@ apply_optimalRF <- function(i, key){
     station_no <- testStationInfo$grdc_no[i]
     print(station_no)
     
-#~     test_data <- read.csv(paste0('../../../data/predictors/pcr_allpredictors/pcr_allpredictors_',
-#~ 								 station_no, '.csv'))
-                                
-    test_data <- read.csv(paste0('../../../../../../../dev/shm/6574882/v0.8.5 - 4px/pcr_allpredictors/pcr_allpredictors_',
+    test_data <- read.csv(paste0('../../../data/predictors/pcr_allpredictors/pcr_allpredictors_',
 								 station_no, '.csv'))
+                                
                                  
     rf.result <- test_data %>% 
       # predict discharge with trained RF

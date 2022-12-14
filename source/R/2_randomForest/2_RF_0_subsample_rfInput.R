@@ -9,13 +9,13 @@ outputDir <- paste0('../../../RF/rf_input/subsample_',subsample,'/')
 dir.create(outputDir, showWarnings = F, recursive = T)
 
 #~ filePathPreds <- '../../../data/predictors/pcr_allpredictors/'
-filePathPreds <- '../../../../../../../dev/shm/6574882/v0.8.5 - 4px/pcr_allpredictors/'
+filePathPreds <- '../../../data/predictors/pcr_allpredictors/'
 fileListPreds <- list.files(filePathPreds, pattern='.csv')
 filenames <- paste0(filePathPreds, fileListPreds)
 
 #---- subsample such that train_stations has between 2/3 and 70% of available data ----#
 source('fun_2_0_subsample_train_test.R')
-registerDoParallel(24)
+registerDoParallel(12)
 print('sampling...')
 repeat{
   
